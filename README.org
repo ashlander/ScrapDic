@@ -1,0 +1,25 @@
+* Description
+
+    *ScrapDict* is dedicated to add more structuring to *ScrapBook* (Firefox extension at [[https://addons.mozilla.org/uk/firefox/addon/scrapbook/]] ). So instead of a list, it could be represented in a *Freemind* way ( [[http://freemind.sourceforge.net/wiki/index.php/Main_Page]] )
+
+    It relies on user tags, which should be added to the *ScrapBook* page comment section. Each tag should start from # sign and be placed at the top of comment. Each new line should represent new tag. In order to separate tags and text comment use empty line.
+
+* TODO
+
+- [.] *ScrapDict version 0.1* milestone
+    - [X] Add common *ScrapBook v1.5.14* support
+    - [X] Add *Freemind v0.9.0* export
+    - [ ] Add command line arguments parser
+        - [ ] Add ScrapBook version
+        - [ ] Add Freemind version
+        - [ ] Add ScrapBook data source directory
+        - [ ] Add Freemind output file
+        - [ ] Add help
+        - [ ] Add list of supported versions
+    - [ ] *ScrapBook parser* should support comments without tags, moving them to *#Tagless* section
+    - [ ] Add *Freemind #ByDate* section, containing *#datetime* tags for all of the history
+    - [ ] Add *Freemind #Recent* section, containing *#datetime* tags for *last 7 days*
+    - [ ] Add Tests for *ScrapBook parser*
+    - [ ] Update *README* file
+    - [X] Bugs
+        - [X] Nothing
