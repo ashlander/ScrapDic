@@ -16,9 +16,12 @@
         - [ ] Add Freemind output file
         - [ ] Add help
         - [ ] Add list of supported versions
-    - [ ] *ScrapBook parser* should support comments without tags, moving them to *#Tagless* section
+    - [X] *ScrapBook parser* should support comments without tags, moving them to *#Tagless* section
     - [ ] Add *Freemind #ByDate* section, containing *#datetime* tags for all of the history
     - [ ] Add *Freemind #Recent* section, containing *#datetime* tags for *last 7 days*
+    - [ ] Provide fast access to index file, so e.g. tagless could become tagful
+    - [ ] Provide additional links to pdf files
+    - [ ] Sort tags within the sections
     - [ ] Add Tests for *ScrapBook parser*
     - [ ] Update *README* file
     - [X] Bugs
