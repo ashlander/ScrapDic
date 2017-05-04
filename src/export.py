@@ -21,15 +21,16 @@ class ScrabDict:
         keyval = self.__splitLine(comment)
         tags = self.__splitTags(keyval[1])
         for tag in tags:
-            tagPair = ("tag", tag)
-            pageInfo.append(tagPair)
+            if tag.startswith("#"):
+                tagPair = ("tag", tag)
+                pageInfo.append(tagPair)
         return pageInfo
 
     def __parseIndex(self, data):
         pageInfo = list()
         for record in data:
             if record.find("comment") == 0:
-               pageInfo += self.__parseComment(record)
+                pageInfo += self.__parseComment(record)
             else:
                 pageInfo.append( self.__splitLine(record) )
 
