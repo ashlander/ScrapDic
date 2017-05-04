@@ -54,6 +54,14 @@ class FreeMind:
     def __fillTagsEpics(self, center, dictionary):
         return self.__fillTags(center, '#Epics', self.__right, dictionary, 7, 99999)
 
+    def __fillTagless(self, center, dictionary):
+        node = self.__setUberNode(center, self.__right, '#Tagless', self.__orange)
+        for tag,pages in dictionary.tagPages().iteritems():
+            if tag == '#tagless':
+                for page in pages:
+                    self.__addLink(node, page.title, page.link)
+        return node
+
     def create(self, path, dictionary):
         root        = Element('map')
         center      = self.__setCenter(root, 'ScrabDic')
@@ -61,6 +69,7 @@ class FreeMind:
         self.__fillTagsDesert(center, dictionary)
         self.__fillTagsPopular(center, dictionary)
         self.__fillTagsEpics(center, dictionary)
+        self.__fillTagless(center, dictionary)
 
         if not path:
             print self.__prettify(root)  # FIXME remove
