@@ -1,5 +1,5 @@
 import os
-#from os import listdir, walk
+import collections
 from os.path import join
 from traverse import TraverseScrabBook
 
@@ -39,7 +39,7 @@ class TagDictionary:
         return True
 
     def tagPages(self):
-        return self.__dictionary
+        return  collections.OrderedDict(sorted(self.__dictionary.items()))
 
 if __name__ == "__main__":
     import sys

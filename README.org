@@ -6,7 +6,7 @@
 
 * TODO
 
-- [.] *ScrapDict version 0.1* milestone
+- [o] *ScrapDict version 0.1* milestone
     - [X] Add common *ScrapBook v1.5.14* support
     - [X] Add *Freemind v0.9.0* export
     - [ ] Add command line arguments parser
@@ -21,7 +21,7 @@
     - [ ] Add *Freemind #Recent* section, containing *#datetime* tags for *last 7 days*
     - [ ] Provide fast access to index file, so e.g. tagless could become tagful
     - [ ] Provide additional links to pdf files
-    - [ ] Sort tags within the sections
+    - [X] Sort tags within the sections
     - [ ] Add Tests for *ScrapBook parser*
     - [ ] Update *README* file
     - [X] Bugs
