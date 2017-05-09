@@ -5,12 +5,13 @@ from traverse import TraverseScrabBook
 
 class TagLink:
 
-    def __init__(self, title, link):
-        self.title = title
-        self.link = link
+    def __init__(self, title, link, indexPath):
+        self.title      = title
+        self.link       = link
+        self.indexPath  = indexPath
 
     def __repr__(self):
-        return "(" + self.title + "," + self.link + ")"
+        return "(" + self.title + "," + self.link + "," + self.indexPath + ")"
 
 class TagDictionary:
 
@@ -19,7 +20,7 @@ class TagDictionary:
     def __init__(self):
         self.__dictionary = dict()
 
-    def addPage(self, pageInfo, dirPath, files):
+    def addPage(self, pageInfo, dirPath, indexPath, files):
         title = next((x[1] for x in pageInfo if x[0] == "title"), ["Unknown Title"])
         tags = [x[1] for x in pageInfo if x[0] == "tag"]
 
@@ -28,7 +29,7 @@ class TagDictionary:
         if self.__scrabBookHtml in files:
             link = join(dirPath, self.__scrabBookHtml)
 
-        tagLink = TagLink(title, link)
+        tagLink = TagLink(title, link, indexPath)
 
         for tag in tags:
             if self.__dictionary.has_key(tag):

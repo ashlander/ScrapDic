@@ -14,6 +14,8 @@
 
 * Versions
 
+    Should work for linux. If you would lie to test/adapt it for e.g. Windows - be my guest.
+
     I took versions I have locally, so this is mostly for myself, however if you will find it useful - nice :). Write me if you have some problems there. No warranty however that I will look into problems for older versions ScrapBook/Freemind. I do know about new *Freemind* v1.0.0, not tested it. So if you happen to try it out, tell me.
 
 * TODO
@@ -31,7 +33,7 @@
     - [X] *ScrapBook parser* should support comments without tags, moving them to *#Tagless* section
     - [ ] Add *Freemind #ByDate* section, containing *#datetime* tags for all of the history
     - [ ] Add *Freemind #Recent* section, containing *#datetime* tags for *last 7 days*
-    - [ ] Provide fast access to index file, so e.g. tagless could become tagful
+    - [X] Provide fast access to index file, so e.g. tagless could become tagful
     - [ ] Provide additional links to pdf files
     - [X] Sort tags within the sections
     - [ ] Add Tests for *ScrapBook parser*

@@ -1,6 +1,17 @@
 from os import listdir, walk
 from os.path import isfile, join, getsize
 
+class ScrabPage:
+
+    def __init__(self, pathDir, indexFile, indexData, listFiles):
+        self.pathDir   = pathDir
+        self.indexFile = indexFile
+        self.indexData = indexData
+        self.listFiles = listFiles
+
+    def __repr__(self):
+        return "( dir = " + self.pathIndex + ", index = " + self.link + ", \n\tfiles = " + self.listFiles + ")"
+
 class TraverseScrabBook:
 
     __scrabBookIndex = "index.dat"
@@ -25,7 +36,7 @@ class TraverseScrabBook:
                 try:
                     with open (indexFile, "r") as index:
                         data = index.readlines()
-                        scrabInfo.append((dirPath, data, onlyfiles))
+                        scrabInfo.append( ScrabPage(dirPath, self.__scrabBookIndex, data, onlyfiles))
                 except:
                     print "[WARN] skipping file", indexFile, "because of error"
 
