@@ -14,7 +14,7 @@
 
 * Versions
 
-    Should work for linux. If you would lie to test/adapt it for e.g. Windows - be my guest.
+    Should work for linux. If you would like to test/adapt it for e.g. Windows - be my guest.
 
     I took versions I have locally, so this is mostly for myself, however if you will find it useful - nice :). Write me if you have some problems there. No warranty however that I will look into problems for older versions ScrapBook/Freemind. I do know about new *Freemind* v1.0.0, not tested it. So if you happen to try it out, tell me.
 
