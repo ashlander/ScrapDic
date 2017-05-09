@@ -11,7 +11,8 @@ class FreeMind:
     __right = 'right'
     __left  = 'left'
     # colors
-    __blue  = '#000066'
+    __black  = '#000000'
+    __blue   = '#000066'
     __orange = '#cc6600'
     #limits
     __desertLimit   = 3
@@ -41,10 +42,30 @@ class FreeMind:
         for tag,pages in dictionary.tagPages().iteritems():
             if len(pages) > minLimit and len(pages) <= maxLimit:
                 tag = self.__setTagNode(node, tag, self.__blue)
-                for page in pages:
-                    titlelink = self.__addFoldedLink(tag, page.title, page.link)
-                    self.__addLink(titlelink, "index", page.indexPath)
+                self.__fillTagExtensions(tag, pages)
         return node
+
+    def __isExtensions(self, page):
+        return (len(page.pdfs) > 0)
+
+    def __fillTagExtensions(self, parent, pages):
+        for page in pages:
+            titlelink = self.__addFoldedLink(parent, page.title, page.link)
+
+            # make title bold if extensions present
+            if (self.__isExtensions(page)):
+                self.__setNodeBold(titlelink)
+
+            # add index file link
+            self.__addLink(titlelink, "index", page.indexPath)
+
+            # add pdfs if present
+            if (len(page.pdfs) > 0):
+                pdfs = self.__addFoldedNode(titlelink)
+                self.__addNodeProperty(pdfs, "pdfs", self.__black)
+                for pdf in page.pdfs:
+                    self.__addLink(pdfs, pdf.title, pdf.link)
+        return parent
 
     def __fillTagsDesert(self, center, dictionary):
         return self.__fillTags(center, '#TagsDesert', self.__left, dictionary, 0, 3)
@@ -59,9 +80,7 @@ class FreeMind:
         node = self.__setUberNode(center, self.__right, '#Tagless', self.__orange)
         for tag,pages in dictionary.tagPages().iteritems():
             if tag == '#tagless':
-                for page in pages:
-                    titlelink = self.__addFoldedLink(node, page.title, page.link)
-                    self.__addLink(titlelink, "index", page.indexPath)
+                self.__fillTagExtensions(node, pages)
         return node
 
     def create(self, path, dictionary):

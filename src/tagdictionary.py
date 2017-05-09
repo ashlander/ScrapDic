@@ -1,17 +1,27 @@
 import os
 import collections
-from os.path import join
+from os.path import join, basename
 from traverse import TraverseScrabBook
 
 class TagLink:
 
-    def __init__(self, title, link, indexPath):
+    def __init__(self, title, link, indexPath, pdfs):
         self.title      = title
         self.link       = link
         self.indexPath  = indexPath
+        self.pdfs       = pdfs
 
     def __repr__(self):
         return "(" + self.title + "," + self.link + "," + self.indexPath + ")"
+
+class PdfLink:
+
+    def __init__(self, title, link):
+        self.title      = title
+        self.link       = link
+
+    def __repr__(self):
+        return "(" + self.title + "," + self.link + ")"
 
 class TagDictionary:
 
@@ -29,7 +39,14 @@ class TagDictionary:
         if self.__scrabBookHtml in files:
             link = join(dirPath, self.__scrabBookHtml)
 
-        tagLink = TagLink(title, link, indexPath)
+        # filter pdf files
+        pdfs = list()
+        pdfExt = ".pdf"
+        for someFile in files:
+            if (someFile.find(pdfExt, max(len(someFile)-len(pdfExt),0), len(someFile)) > 0):
+                pdfs.append( PdfLink(someFile, join(dirPath,someFile)) )
+
+        tagLink = TagLink(title, link, indexPath, pdfs)
 
         for tag in tags:
             if self.__dictionary.has_key(tag):
