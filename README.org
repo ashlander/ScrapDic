@@ -4,6 +4,20 @@
 
     It relies on user tags, which should be added to the *ScrapBook* page comment section. Each tag should start from # sign and be placed at the top of comment. Each new line should represent new tag. In order to separate tags and text comment use empty line.
 
+* Usage
+
+    Find *ScrapBook* (e.g. ~/.mozilla/firefox/xxxxxxx.default/ScrapBook/data/) data directory, then go to projects root directory and run
+
+#+BEGIN_EXAMPLE
+    python src/main.py /path/to/scrapbook/data_directory /path/to/freemind.mm
+#+END_EXAMPLE 
+
+* Versions
+
+    Should work for linux. If you would like to test/adapt it for e.g. Windows - be my guest.
+
+    I took versions I have locally, so this is mostly for myself, however if you will find it useful - nice :). Write me if you have some problems there. No warranty however that I will look into problems for older versions ScrapBook/Freemind. I do know about new *Freemind* v1.0.0, not tested it. So if you happen to try it out, tell me.
+
 * TODO
 
 - [o] *ScrapDict version 0.1* milestone
@@ -19,7 +33,7 @@
     - [X] *ScrapBook parser* should support comments without tags, moving them to *#Tagless* section
     - [ ] Add *Freemind #ByDate* section, containing *#datetime* tags for all of the history
     - [ ] Add *Freemind #Recent* section, containing *#datetime* tags for *last 7 days*
-    - [ ] Provide fast access to index file, so e.g. tagless could become tagful
+    - [X] Provide fast access to index file, so e.g. tagless could become tagful
     - [ ] Provide additional links to pdf files
     - [X] Sort tags within the sections
     - [ ] Add Tests for *ScrapBook parser*

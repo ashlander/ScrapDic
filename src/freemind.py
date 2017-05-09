@@ -42,7 +42,8 @@ class FreeMind:
             if len(pages) > minLimit and len(pages) <= maxLimit:
                 tag = self.__setTagNode(node, tag, self.__blue)
                 for page in pages:
-                    self.__addLink(tag, page.title, page.link)
+                    titlelink = self.__addFoldedLink(tag, page.title, page.link)
+                    self.__addLink(titlelink, "index", page.indexPath)
         return node
 
     def __fillTagsDesert(self, center, dictionary):
@@ -59,7 +60,8 @@ class FreeMind:
         for tag,pages in dictionary.tagPages().iteritems():
             if tag == '#tagless':
                 for page in pages:
-                    self.__addLink(node, page.title, page.link)
+                    titlelink = self.__addFoldedLink(node, page.title, page.link)
+                    self.__addLink(titlelink, "index", page.indexPath)
         return node
 
     def create(self, path, dictionary):
@@ -115,6 +117,17 @@ class FreeMind:
         return SubElement(parent, 'node', {
             'CREATED':'1493235457878', # TODO get some true value
             'ID':str(self.__id),
+            'MODIFIED':'1493235457879', # TODO get some true value
+            'TEXT':text,
+            })
+
+    def __addFoldedLink(self, parent, text, link):
+        self.__id += 1
+        return SubElement(parent, 'node', {
+            'CREATED':'1493235457878', # TODO get some true value
+            'ID':str(self.__id),
+            'FOLDED':'true',
+            'LINK':link,
             'MODIFIED':'1493235457879', # TODO get some true value
             'TEXT':text,
             })

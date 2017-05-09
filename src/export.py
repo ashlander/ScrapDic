@@ -4,6 +4,7 @@ import os
 from traverse import TraverseScrabBook
 from tagdictionary import TagDictionary
 from freemind import FreeMind
+from os.path import join
 
 class ScrabDict:
 
@@ -48,15 +49,16 @@ class ScrabDict:
         scrabBook = TraverseScrabBook().withPath(srcPath)
         dictionary = TagDictionary()
         for scrabPage in scrabBook:
-            srcPath = scrabPage[0]
-            metaData = scrabPage[1]
-            files = scrabPage[2]
+            srcPath  = scrabPage.pathDir
+            srcIndex = join(scrabPage.pathDir,scrabPage.indexFile)
+            metaData = scrabPage.indexData
+            files    = scrabPage.listFiles
 
-            print "[INF] Parsing index file ", srcPath, ""
+            print "[INF] Parsing index file ", srcIndex, ""
             pageInfo = self.__parseIndex(metaData)
 
             print "[INF] Generating tags dictionary"
-            dictionary.addPage(pageInfo, srcPath, files)
+            dictionary.addPage(pageInfo, srcPath, srcIndex, files)
 
             #break # FIXME remove
 
