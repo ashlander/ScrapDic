@@ -59,6 +59,9 @@ class FreeMind:
             # add index file link
             self.__addLink(titlelink, "index", page.indexPath)
 
+            # add source link
+            self.__addLink(titlelink, "source", page.source)
+
             # add pdfs if present
             if (len(page.pdfs) > 0):
                 pdfs = self.__addFoldedNode(titlelink)
