@@ -5,11 +5,12 @@ from traverse import TraverseScrabBook
 
 class TagLink:
 
-    def __init__(self, title, link, indexPath, pdfs):
+    def __init__(self, title, link, indexPath, pdfs, source):
         self.title      = title
         self.link       = link
         self.indexPath  = indexPath
         self.pdfs       = pdfs
+        self.source     = source # source site link
 
     def __repr__(self):
         return "(" + self.title + "," + self.link + "," + self.indexPath + ")"
@@ -31,8 +32,9 @@ class TagDictionary:
         self.__dictionary = dict()
 
     def addPage(self, pageInfo, dirPath, indexPath, files):
-        title = next((x[1] for x in pageInfo if x[0] == "title"), ["Unknown Title"])
-        tags = [x[1] for x in pageInfo if x[0] == "tag"]
+        title  = next((x[1] for x in pageInfo if x[0] == "title"), ["Unknown Title"])
+        source = next((x[1] for x in pageInfo if x[0] == "source"), ["Unknown Title"])
+        tags   = [x[1] for x in pageInfo if x[0] == "tag"]
 
         # detecting link path if available
         link = ""
@@ -46,7 +48,7 @@ class TagDictionary:
             if (someFile.find(pdfExt, max(len(someFile)-len(pdfExt),0), len(someFile)) > 0):
                 pdfs.append( PdfLink(someFile, join(dirPath,someFile)) )
 
-        tagLink = TagLink(title, link, indexPath, pdfs)
+        tagLink = TagLink(title, link, indexPath, pdfs, source)
 
         for tag in tags:
             if self.__dictionary.has_key(tag):
@@ -57,7 +59,7 @@ class TagDictionary:
         return True
 
     def tagPages(self):
-        return  collections.OrderedDict(sorted(self.__dictionary.items()))
+        return collections.OrderedDict(sorted(self.__dictionary.items()))
 
 if __name__ == "__main__":
     import sys
