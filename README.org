@@ -24,7 +24,7 @@
     - [ ] *Epic* section becomes bigger, but to make it useful, add neighboring tags as sub tags
     - [ ] *Tags Desert* contains to many of tags, as expected, separate content, creating nodes with name representing number of pages, as well as fold them off
     - [ ] Update *README* file
-- [o] *ScrapDict version 0.1* milestone
+- [O] *ScrapDict version 0.1* milestone
     - [X] Add common *ScrapBook v1.5.14* support
     - [X] Add *Freemind v0.9.0* export
     - [ ] Add command line arguments parser
@@ -35,8 +35,8 @@
         - [ ] Add help
         - [ ] Add list of supported versions
     - [X] *ScrapBook parser* should support comments without tags, moving them to *#Tagless* section
-    - [ ] Add *Freemind #ByDate* section, containing *#datetime* tags for all of the history
-    - [ ] Add *Freemind #Recent* section, containing *#datetime* tags for *last 7 days*
+    - [X] Add *Freemind #ByDate* section, containing *#datetime* tags for all of the history
+    - [X] Add *Freemind #Recent* section, containing *#datetime* tags for *last 7 days*
     - [X] Provide fast access to index file, so e.g. tagless could become tagful
     - [X] Provide additional links to pdf files
     - [X] Provide additional link to source site
