@@ -2,6 +2,7 @@ import os
 from traverse import TraverseScrabBook
 from xml.etree.ElementTree import Element, SubElement, Comment, tostring
 from xml.dom import minidom
+import datetime
 
 class FreeMind:
 
@@ -25,8 +26,8 @@ class FreeMind:
         root = self.__addVersion(root)
         return self.__addTextNode(root, text)
 
-    def __setUberNode(self, center, position, text, color):
-        uber = self.__addLocation(center, position)
+    def __setUberNode(self, center, position, text, color, folded = False):
+        uber = self.__addFoldedLocation(center, position) if folded else self.__addLocation(center, position)
         self.__addNodeProperty(uber, text, color)
         self.__setNodeBold(uber)
         return uber
@@ -37,11 +38,19 @@ class FreeMind:
         self.__setNodeBold(tag)
         return tag
 
-    def __fillTags(self, center, text, position, dictionary, minLimit, maxLimit):
-        node = self.__setUberNode(center, position, text, self.__orange)
+    def __fillTags(self, center, text, position, dictionary, minLimit, maxLimit, folded = False):
+        node = self.__setUberNode(center, position, text, self.__orange, folded)
         for tag,pages in dictionary.tagPages().iteritems():
             if len(pages) > minLimit and len(pages) <= maxLimit:
                 tag = self.__setTagNode(node, tag, self.__blue)
+                self.__fillTagExtensions(tag, pages)
+        return node
+
+    def __fillByDate(self, center, text, position, dictionary, folded = False, dayLimit = ""):
+        node = self.__setUberNode(center, position, text, self.__orange, folded)
+        for date,pages in dictionary.datePages().iteritems():
+            if not dayLimit or date > dayLimit:
+                tag = self.__setTagNode(node, date, self.__blue)
                 self.__fillTagExtensions(tag, pages)
         return node
 
@@ -71,7 +80,17 @@ class FreeMind:
         return parent
 
     def __fillTagsDesert(self, center, dictionary):
-        return self.__fillTags(center, '#TagsDesert', self.__left, dictionary, 0, 3)
+        folded = True
+        return self.__fillTags(center, '#TagsDesert', self.__left, dictionary, 0, 3, folded)
+
+    def __fillRecent(self, center, dictionary):
+        notFolded = False
+        dateLimit = (datetime.datetime.now() - datetime.timedelta(days=7)).strftime('%Y%m%d')
+        return self.__fillByDate(center, '#Recent', self.__left, dictionary, notFolded, dateLimit)
+
+    def __fillHistory(self, center, dictionary):
+        folded = True
+        return self.__fillByDate(center, '#ByDate', self.__left, dictionary, folded)
 
     def __fillTagsPopular(self, center, dictionary):
         return self.__fillTags(center, '#Popular', self.__right, dictionary, 3, 7)
@@ -80,7 +99,8 @@ class FreeMind:
         return self.__fillTags(center, '#Epics', self.__right, dictionary, 7, 99999)
 
     def __fillTagless(self, center, dictionary):
-        node = self.__setUberNode(center, self.__right, '#Tagless', self.__orange)
+        folded = True
+        node = self.__setUberNode(center, self.__right, '#Tagless', self.__orange, folded)
         for tag,pages in dictionary.tagPages().iteritems():
             if tag == '#tagless':
                 self.__fillTagExtensions(node, pages)
@@ -94,6 +114,8 @@ class FreeMind:
         self.__fillTagsPopular(center, dictionary)
         self.__fillTagsEpics(center, dictionary)
         self.__fillTagless(center, dictionary)
+        self.__fillRecent(center, dictionary)
+        self.__fillHistory(center, dictionary)
 
         if not path:
             print self.__prettify(root)  # FIXME remove
@@ -169,6 +191,16 @@ class FreeMind:
         return SubElement(parent, 'node', {
             'CREATED':'1493235457878', # TODO get some true value
             'ID':str(self.__id),
+            'MODIFIED':'1493235457879', # TODO get some true value
+            'POSITION':position,
+            })
+
+    def __addFoldedLocation(self, parent, position):
+        self.__id += 1
+        return SubElement(parent, 'node', {
+            'CREATED':'1493235457878', # TODO get some true value
+            'ID':str(self.__id),
+            'FOLDED':'true',
             'MODIFIED':'1493235457879', # TODO get some true value
             'POSITION':position,
             })
