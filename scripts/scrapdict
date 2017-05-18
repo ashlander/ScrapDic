@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# cd to script directory
+function GoToScriptDirectory
+{
+    cd "${0%/*}"
+}
+
+function GoToProjectDirectory
+{
+    GoToScriptDirectory
+    cd ".."
+}
+
+GoToProjectDirectory
+
+python src/main.py $@
+
